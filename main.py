@@ -1,5 +1,6 @@
 import pygame
 from snake import Snake
+from tree import Tree
 
 
 class Game:
@@ -14,6 +15,12 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.snake = Snake(120, 120, self)
+        self.trees = [
+                        Tree((320, 480), (0, -1), 50),
+                        Tree((0, 240), (1, 0), 50),
+                        Tree((320, 0), (0, 1), 50),
+                        Tree((640, 240), (-1, 0), 50)
+                     ]
 
     def event(self):
         event_list = pygame.event.get()
@@ -34,7 +41,7 @@ class Game:
                     self.snake.dir = (0, -1)
 
     def update(self):
-        self.snake.update()
+        #self.snake.update()
         if self.state == "end":
             self.end_counter += 10
             if self.end_counter >= 200:
@@ -42,7 +49,8 @@ class Game:
 
     def render(self):
         self.window.fill((51,51,51))
-        self.snake.render(self.window)
+        [tree.render(self.window) for tree in self.trees]
+        #self.snake.render(self.window)
 
         if self.state == "end":
             self.end_surface.set_alpha(self.end_counter)
