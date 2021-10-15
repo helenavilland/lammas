@@ -5,7 +5,11 @@ from snake import Snake
 class Game:
     def __init__(self):
         pygame.init()
+        self.state = "game"
+        self.end_counter = 0
         self.window = pygame.display.set_mode((640, 480))
+        self.end_surface = pygame.Surface((640, 480))
+        self.end_surface.fill((255, 0, 0))
         self.clock = pygame.time.Clock()
         self.running = True
         self.snake = Snake(120, 120)
@@ -18,8 +22,7 @@ class Game:
                 break
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.running = False
-                    break
+                    self.state = "end"
                 elif event.key == pygame.K_RIGHT:
                     self.snake.dir = (1, 0)
                 elif event.key == pygame.K_LEFT:
@@ -31,11 +34,19 @@ class Game:
 
     def update(self):
         self.snake.update()
+        if self.state == "end":
+            self.end_counter += 10
+            if self.end_counter >= 200:
+                self.running = False
 
     def render(self):
         self.window.fill((51,51,51))
-        # pygame.draw.rect(self.window, (0,0,200), (self.x, self.y, 40, 40))
         self.snake.render(self.window)
+
+        if self.state == "end":
+            self.end_surface.set_alpha(self.end_counter)
+            self.window.blit(self.end_surface, (0,0))
+
         pygame.display.update()
 
     def run(self):
