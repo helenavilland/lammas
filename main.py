@@ -22,6 +22,7 @@ class Game:
                         Tree((320, 0), (0, 1), 50),
                         Tree((640, 240), (-1, 0), 50)
                      ]
+        self.grow_apple()
 
     def event(self):
         event_list = pygame.event.get()
@@ -45,7 +46,7 @@ class Game:
                     
 
     def update(self):
-        #self.snake.update()
+        self.snake.update()
         if self.state == "end":
             self.end_counter += 10
             if self.end_counter >= 200:
@@ -54,7 +55,7 @@ class Game:
     def render(self):
         self.window.fill((51,51,51))
         [tree.render(self.window) for tree in self.trees]
-        #self.snake.render(self.window)
+        self.snake.render(self.window)
 
         if self.state == "end":
             self.end_surface.set_alpha(self.end_counter)
@@ -68,6 +69,11 @@ class Game:
             self.update()
             self.render()
             self.clock.tick(6)
+
+    def grow_apple(self):
+        self.apple = random.choice(self.trees).grow()
+        self.snake.apple = self.apple
+
 
 game = Game()
 game.run()
