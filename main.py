@@ -7,12 +7,13 @@ class Game:
         pygame.init()
         self.state = "game"
         self.end_counter = 0
-        self.window = pygame.display.set_mode((640, 480))
-        self.end_surface = pygame.Surface((640, 480))
+        self.window_size = (640, 480)
+        self.window = pygame.display.set_mode(self.window_size)
+        self.end_surface = pygame.Surface(self.window_size)
         self.end_surface.fill((255, 0, 0))
         self.clock = pygame.time.Clock()
         self.running = True
-        self.snake = Snake(120, 120)
+        self.snake = Snake(120, 120, self)
 
     def event(self):
         event_list = pygame.event.get()
