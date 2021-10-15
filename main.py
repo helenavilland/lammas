@@ -1,4 +1,5 @@
 import pygame
+from snake import Snake
 
 
 class Game:
@@ -6,8 +7,8 @@ class Game:
         pygame.init()
         self.window = pygame.display.set_mode((640, 480))
         self.clock = pygame.time.Clock()
-        self.x, self.y = 120, 120
         self.running = True
+        self.snake = Snake(120, 120)
 
     def event(self):
         event_list = pygame.event.get()
@@ -20,20 +21,21 @@ class Game:
                     self.running = False
                     break
                 elif event.key == pygame.K_RIGHT:
-                    self.x += 40
+                    self.snake.dir = (1, 0)
                 elif event.key == pygame.K_LEFT:
-                    self.x -= 40
+                    self.snake.dir = (-1, 0)
                 elif event.key == pygame.K_DOWN:
-                    self.y += 40
+                    self.snake.dir = (0, 1)
                 elif event.key == pygame.K_UP:
-                    self.y -= 40
+                    self.snake.dir = (0, -1)
 
     def update(self):
-        pass
+        self.snake.update()
 
     def render(self):
         self.window.fill((51,51,51))
-        pygame.draw.rect(self.window, (0,0,200), (self.x, self.y, 40, 40))
+        # pygame.draw.rect(self.window, (0,0,200), (self.x, self.y, 40, 40))
+        self.snake.render(self.window)
         pygame.display.update()
 
     def run(self):
@@ -41,7 +43,7 @@ class Game:
             self.event()
             self.update()
             self.render()
-            self.clock.tick(60)
+            self.clock.tick(6)
 
 game = Game()
 game.run()
