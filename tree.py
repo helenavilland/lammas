@@ -29,6 +29,7 @@ class Tree:
         new_direction_r = self.direction.rotate(self.ROTATE)
         self.branches.append(Tree(self.end_pos, new_direction_l, self.length * self.SMALLER))
         self.branches.append(Tree(self.end_pos, new_direction_r, self.length * self.SMALLER))
+        self.apple = None
 
     def grow(self):
         if self.branches:

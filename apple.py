@@ -9,3 +9,6 @@ class Apple:
 
     def render(self, screen):
         pygame.draw.circle(screen, (200, 0, 0), self.location, 5)
+
+    def eat(self):
+        self.tree.branch()
