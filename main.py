@@ -33,13 +33,13 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.state = "end"
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_RIGHT and self.snake.dir != (-1, 0):
                     self.snake.dir = (1, 0)
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_LEFT and self.snake.dir != (1, 0):
                     self.snake.dir = (-1, 0)
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN and self.snake.dir != (0, -1):
                     self.snake.dir = (0, 1)
-                elif event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP and self.snake.dir != (0, 1):
                     self.snake.dir = (0, -1)
                 elif event.key == pygame.K_b:
                     random.choice(self.trees).branch()
