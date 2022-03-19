@@ -51,9 +51,10 @@ class Game:
                 self.running = False
 
     def render(self):
-        self.window.fill((51, 51, 51))
-        [tree.render(self.window) for tree in self.trees]
+        self.window.fill((255, 255, 255)) # värvime halliks
         self.snake.render(self.window)
+        [tree.render(self.window) for tree in self.trees] #joonistame sinna peale puud
+         #joonistame puude peale mao
 
         if self.state == "end":
             self.end_surface.set_alpha(self.end_counter)
